@@ -1,8 +1,10 @@
 export type Node = { id: string; label: string; kind: 'user' | 'repository'; x: number; y: number; role: string };
 export type Edge = { source: string; target: string; kind: 'follow' | 'contribution' };
+export function isValidGitHubId(id: string): boolean {
+  return /^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(id) && !id.includes('--');
+}
 export function validateIds(first: string, second: string): string | null {
-  const valid = /^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i;
-  if (![first, second].every(id => valid.test(id) && !id.includes('--'))) return '有効な GitHub ID を入力してください（英数字・ハイフン、最大39文字）。';
+  if (![first, second].every(isValidGitHubId)) return '有効な GitHub ID を入力してください（英数字・ハイフン、最大39文字）。';
   if (first.toLowerCase() === second.toLowerCase()) return '異なる2人の GitHub ID を入力してください。';
   return null;
 }

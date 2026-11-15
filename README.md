@@ -18,7 +18,7 @@ npm run build
 npm start
 ```
 
-2つの異なる GitHub ID を入力して探索できます。フィルター、ノードの詳細表示、ズーム、表示リセットに対応しています。表示する5ノード・2経路は架空で、ユーザーの実在確認や外部 API 呼び出しは行いません。統計はフィルター前の全経路を示します。
+架空データのデモでは、2つの異なる GitHub ID を入力して探索できます。フィルター、ノードの詳細表示、ズーム、表示リセットに対応しています。表示する5ノード・2経路は架空で、ユーザーの実在確認や外部 API 呼び出しは行いません。統計はフィルター前の全経路を示します。
 
 ## Relate 動作検証
 
@@ -33,3 +33,9 @@ DB は実行ごとに作成するメモリー内 DB で、検索終了時に破�
 GitHub の `main` を Import し、Framework Preset は Next.js、Root Directory はリポジトリ直下、Build Command は **`npm run build`** を指定します（`next build` の直接指定では WASM 配置処理を実行しません）。`vercel.json` にも同じ Build Command を指定済みです。環境変数は不要です。デプロイ後に `/` と `/relate-check` を開き、検証ボタンの実行で2つの検索結果が出ることを確認してください。
 
 調査根拠・構成比較・検証結果は [docs/relate-validation.md](docs/relate-validation.md) を参照してください。
+
+## GitHub 公開フォロー探索
+
+メイン画面の「GitHub 公開フォローを探索」で、公式の無認証 REST API から公開プロフィール・各フォロー一覧の先頭100件を取得し、実際の Relate WASM で直接関係と共通接点を検索できます。API は最大8リクエスト/探索、5分キャッシュ、レート制限対応。図には共通接点を最大8人まで表示し、ノード詳細から GitHub を開けます。架空データでの補完は行いません。
+
+ネットワークの許可設定では `api.github.com` が必要です。Vercel の秘密情報・環境変数は不要です。取得制限、非永続性、テストとライブ確認の区別は [docs/github-follow.md](docs/github-follow.md) を参照してください。
