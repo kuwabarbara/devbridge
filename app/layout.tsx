@@ -1,0 +1,4 @@
+import type { Metadata } from 'next';
+import './globals.css';
+export const metadata: Metadata = { title: 'DevBridge — Discover your connection', description: 'GitHubの開発者をつなぐ、フォローとOSS貢献の経路を探索。' };
+export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="ja"><body>{children}</body></html>; }
